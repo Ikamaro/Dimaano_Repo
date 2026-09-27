@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Dota 2 heroes, matches, and Arcana cosmetics">
+  <title>Dota 2 | The Ancient Awaits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --ink: #17191c;
+  --muted: #62666a;
+  --gold: #caa462;
+  --red: #c54b3e;
+  --dark: #08090b;
+  --panel: #ffffff;
+  --line: #d9d9d5;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: #f5f5f2; font-family: "DM Sans", sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+
+.site-header { position: absolute; z-index: 5; top: 0; right: 0; left: 0; display: flex; align-items: center; justify-content: space-between; padding: 25px clamp(24px, 6vw, 90px); border-bottom: 1px solid #e0e0dc; background: rgba(255, 255, 255, 0.94); }
+.brand { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); font-size: 15px; font-weight: 700; letter-spacing: 0.16em; }
+.brand-mark { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold); font-family: "Playfair Display", serif; font-size: 17px; letter-spacing: 0; }
+.site-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 43px); color: #65686b; font-size: 12px; font-weight: 600; }
+.site-nav a { padding: 9px 0; }
+.site-nav a:hover, .site-nav a.active { color: var(--gold); }
+
+.hero { position: relative; display: flex; align-items: center; min-height: 720px; overflow: hidden; padding: 150px clamp(24px, 9vw, 140px) 100px; background: #08090b; }
+.hero-backdrop { position: absolute; inset: 0; opacity: 0.48; background: linear-gradient(90deg, #08090b 0%, rgba(8, 9, 11, 0.7) 45%, rgba(8, 9, 11, 0.16)), url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png") center / cover; filter: grayscale(0.72) contrast(1.14); }
+.hero-backdrop::after { position: absolute; inset: 0; background: linear-gradient(0deg, var(--dark) 0%, transparent 24%, transparent 80%, rgba(0, 0, 0, 0.45)); content: ""; }
+.hero-copy { position: relative; z-index: 1; max-width: 620px; }
+.eyebrow { margin: 0 0 19px; color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 0.19em; text-transform: uppercase; }
+h1, h2, h3 { margin: 0; font-family: "Playfair Display", serif; font-weight: 600; }
+h1 { font-size: clamp(59px, 8vw, 112px); line-height: 0.9; }
+h1 em { color: var(--gold); font-style: normal; }
+.intro { max-width: 480px; margin: 28px 0 0; color: #c7c8c2; font-size: 16px; line-height: 1.7; }
+.hero-button { display: inline-flex; align-items: center; gap: 20px; margin-top: 34px; padding: 15px 20px; border: 1px solid var(--gold); color: var(--gold); font-size: 13px; font-weight: 700; }
+.hero-button:hover { color: var(--dark); background: var(--gold); }
+.hero-button span { font-size: 19px; }
+.hero-crest { position: absolute; right: 12%; bottom: 19%; color: rgba(218, 171, 96, 0.22); font-family: "Playfair Display", serif; font-size: clamp(35px, 5vw, 72px); font-weight: 700; line-height: 0.72; letter-spacing: 0.08em; text-align: center; transform: rotate(-13deg); }
+.hero-crest span { font-size: 1.55em; }
+
+.content-section { max-width: 1280px; margin: auto; padding: 110px clamp(24px, 7vw, 100px) 125px; background: #f5f5f2; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 45px; }
+.section-heading h2, .arcana-copy h2 { font-size: clamp(34px, 4vw, 55px); }
+.section-heading > p { max-width: 340px; margin: 0 0 5px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.hero-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
+.hero-card { overflow: hidden; border: 1px solid #d3d3cf; background: var(--panel); transition: transform 180ms ease, border-color 180ms ease; }
+.hero-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+.hero-card img { display: block; width: 100%; height: 180px; object-fit: cover; object-position: center top; background: #292d31; }
+.hero-card div { padding: 18px 17px 20px; }
+.hero-card span { color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+.hero-card h3 { margin-top: 9px; font-size: 25px; }
+.hero-card p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+
+.news-section { padding: 78px clamp(24px, 7vw, 100px) 90px; background: #ffffff; }
+.news-heading { display: flex; align-items: end; gap: 30px; max-width: 1080px; margin: auto auto 33px; }
+.news-heading .eyebrow { margin: 0; }
+.news-heading h2 { margin-right: auto; font-size: clamp(34px, 4vw, 52px); }
+.news-heading a { color: var(--red); font-size: 12px; font-weight: 700; }
+.news-heading a span { margin-left: 8px; font-size: 16px; }
+.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1080px; margin: auto; border-top: 1px solid var(--line); }
+.news-card { min-height: 225px; padding: 25px 25px 20px 0; border-right: 1px solid var(--line); }
+.news-card + .news-card { padding-left: 25px; }
+.news-card:last-child { border-right: 0; }
+.news-card span, .news-card time { color: var(--red); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; }
+.news-card h3 { margin: 15px 0 9px; font-size: 25px; line-height: 1.05; }
+.news-card p { max-width: 270px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.news-card time { display: block; margin-top: 21px; color: var(--muted); letter-spacing: 0.08em; }
+.about-section { display: flex; align-items: end; justify-content: space-between; gap: 60px; padding: 85px clamp(24px, 7vw, 100px); color: #e9e6dc; background: #08090b; }
+.about-section h2 { font-size: clamp(36px, 5vw, 66px); }
+.about-section > p { max-width: 480px; margin: 0; color: #a9aaa6; font-size: 15px; line-height: 1.8; }
+
+.arcana-section { display: grid; grid-template-columns: minmax(300px, 1fr) minmax(300px, 0.9fr); min-height: 470px; background: #08090b; }
+.arcana-art { display: flex; flex-direction: column; justify-content: center; min-height: 470px; padding: 70px clamp(30px, 8vw, 130px); background: radial-gradient(circle at 43% 45%, rgba(185, 74, 56, 0.45), transparent 29%), linear-gradient(135deg, #3a1819, #131519 70%); }
+.arcana-art span { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 0.23em; }
+.arcana-art strong { margin-top: 20px; color: #ede3cc; font-family: "Playfair Display", serif; font-size: clamp(42px, 6vw, 78px); line-height: 0.9; }
+.arcana-copy { align-self: center; max-width: 480px; padding: 70px clamp(30px, 7vw, 100px); }
+.arcana-copy p:not(.eyebrow) { margin: 22px 0 28px; color: var(--muted); font-size: 15px; line-height: 1.8; }
+.arcana-copy a { color: var(--gold); font-size: 13px; font-weight: 700; }
+.arcana-copy a span { margin-left: 12px; font-size: 18px; }
+.arcana-grid { display: grid; grid-template-columns: repeat(2, minmax(115px, 1fr)); gap: 10px; margin: 25px 0 24px; }
+.arcana-card { position: relative; display: flex; align-items: center; min-height: 78px; overflow: hidden; border: 1px solid rgba(232, 226, 209, 0.15); background: #121417; }
+.arcana-card::before { position: absolute; z-index: 1; top: 7px; left: 7px; padding: 3px 5px; color: #111; background: var(--gold); content: "ARCANA"; font-size: 7px; font-weight: 700; letter-spacing: 0.12em; }
+.arcana-card img { width: 72px; height: 78px; object-fit: cover; object-position: center; background: #26292d; filter: saturate(1.45) contrast(1.05); }
+.arcana-card div { display: flex; flex-direction: column; gap: 4px; padding: 9px; }
+.arcana-card strong { color: #eee9dc; font-family: "Playfair Display", serif; font-size: 14px; }
+.arcana-card span { color: #969a98; font-size: 9px; line-height: 1.25; }
+.site-footer { display: flex; justify-content: space-between; padding: 25px clamp(24px, 7vw, 100px); color: #777a78; font-size: 11px; letter-spacing: 0.07em; }
+
+@media (max-width: 800px) {
+  .site-header { position: relative; padding: 20px 24px; background: #ffffff; }
+  .site-nav { gap: 15px; font-size: 11px; }
+  .site-nav a:not(:last-child) { display: none; }
+  .hero { min-height: 650px; padding: 100px 24px 150px; }
+  .hero-crest { right: 10%; bottom: 23%; }
+  .section-heading { display: block; }
+  .section-heading > p { margin-top: 18px; }
+  .hero-grid { grid-template-columns: repeat(2, 1fr); }
+  .news-grid { grid-template-columns: 1fr; }
+  .news-card, .news-card + .news-card { padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .news-card:last-child { border-bottom: 0; }
+  .about-section { display: block; }
+  .about-section > p { margin-top: 22px; }
+  .arcana-copy { max-width: none; }
+  .arcana-section { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .brand { font-size: 12px; }
+  .site-nav a:last-child { display: block; }
+  h1 { font-size: 62px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-card img { height: 210px; }
+  .site-footer span:last-child { display: none; }
+}
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="landing.html" aria-label="Dota 2 home">
+      <span class="brand-mark">D</span>
+      <span>DOTA 2</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="active" href="#home">Game</a>
+      <a href="#heroes">Heroes</a>
+      <a href="#news">News</a>
+      <a href="#arcana">Esports</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">The battle begins</p>
+        <h1>Choose your<br><em>legend.</em></h1>
+        <p class="intro">A strategic multiplayer experience where every hero, item, and decision can change the fate of the Ancient.</p>
+        <a class="hero-button" href="#about">Discover Dota 2 <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <div class="hero-crest" aria-hidden="true">DOTA<br><span>2</span></div>
+    </section>
+
+    <section class="news-section" id="news">
+      <div class="news-heading"><p class="eyebrow">Stay in the fight</p><h2>Latest news</h2><a href="#news">View all <span aria-hidden="true">&#8594;</span></a></div>
+      <div class="news-grid">
+        <article class="news-card"><span>GAMEPLAY UPDATE</span><h3>Every hero brings a new strategy</h3><p>Explore new builds, match ideas, and ways to turn the next team fight in your favor.</p><time>September 2026</time></article>
+        <article class="news-card"><span>THE INTERNATIONAL</span><h3>The world's best are ready</h3><p>Follow the biggest battles, boldest plays, and unforgettable moments from the Dota stage.</p><time>August 2026</time></article>
+        <article class="news-card"><span>COMMUNITY</span><h3>Find your next five</h3><p>Gather your team, pick your heroes, and step into the battle together.</p><time>July 2026</time></article>
+      </div>
+    </section>
+
+    <section class="about-section" id="about">
+      <div><p class="eyebrow">Join the battle</p><h2>Defend your Ancient.</h2></div>
+      <p>Every day, players enter a 5v5 clash with hundreds of heroes to choose from. No two matches are alike, and there is always another strategy to discover.</p>
+    </section>
+
+    <section class="content-section" id="heroes">
+      <div class="section-heading">
+        <div><p class="eyebrow">Character roster</p><h2>Heroes of the battlefield</h2></div>
+        <p>Find the playstyle that feels like yours. Strength, agility, intelligence, or a little chaos.</p>
+      </div>
+      <div class="hero-grid">
+        <a class="hero-card" href="https://www.dota2.com/hero/anti-mage" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png" alt="Anti-Mage hero artwork"><div><span>Agility</span><h3>Anti-Mage</h3><p>Spellbreaker</p></div></a>
+        <a class="hero-card" href="https://www.dota2.com/hero/crystalmaiden" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png" alt="Crystal Maiden hero artwork"><div><span>Intelligence</span><h3>Crystal Maiden</h3><p>Frost mage</p></div></a>
+        <a class="hero-card" href="https://www.dota2.com/hero/juggernaut" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png" alt="Juggernaut hero artwork"><div><span>Agility</span><h3>Juggernaut</h3><p>Blade master</p></div></a>
+        <a class="hero-card" href="https://www.dota2.com/hero/ogremagi" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png" alt="Ogre Magi hero artwork"><div><span>Strength</span><h3>Ogre Magi</h3><p>Lucky brute</p></div></a>
+      </div>
+    </section>
+
+    <section class="arcana-section" id="arcana">
+      <div class="arcana-art" aria-hidden="true"><span>ARCANA</span><strong>THE<br>IMMORTAL<br>FORM</strong></div>
+      <div class="arcana-copy"><p class="eyebrow">Beyond legendary</p><h2>Wear the story.</h2><p>Arcana items transform the heroes you know with new animations, effects, voice lines, and a presence all their own.</p>
+        <div class="arcana-grid">
+          <a class="arcana-card" href="https://www.dota2.com/frosthaven?l=swedish" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png" alt="Rubick Arcana"><div><strong>Rubick</strong><span>The Magus Cypher</span></div></a>
+          <a class="arcana-card" href="https://www.dota2.com/bladeformlegacy" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png" alt="Juggernaut Arcana"><div><strong>Juggernaut</strong><span>Bladeform Legacy</span></div></a>
+          <a class="arcana-card" href="https://www.dota2.com/newbloom/part3" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png" alt="Crystal Maiden Arcana"><div><strong>Crystal Maiden</strong><span>Frost Avalanche</span></div></a>
+          <a class="arcana-card" href="https://www.dota2.com/flockheartsgamble" target="_blank" rel="noopener"><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png" alt="Ogre Magi Arcana"><div><strong>Ogre Magi</strong><span>Flockheart's Gamble</span></div></a>
+        </div>
+        <a href="#arcana">View the collection <span aria-hidden="true">&#8594;</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Play bold. Defend the Ancient.</span>
+    <span>© 2026 Dota 2</span>
+  </footer>
+</body>
+</html>

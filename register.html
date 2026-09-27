@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create a Dota 2 account">
+  <title>Register | Dota 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --ink: #1f2924;
+  --muted: #77817a;
+  --line: #dfe4de;
+  --paper: #f7f8f4;
+  --white: #ffffff;
+  --pine: #214c3b;
+  --pine-dark: #17382d;
+  --sage: #dce9db;
+  --coral: #e57962;
+  --shadow: 0 24px 70px rgba(22, 45, 34, 0.09);
+}
+
+* { box-sizing: border-box; }
+
+html { min-width: 320px; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input { font: inherit; }
+a { color: inherit; }
+
+.auth-shell {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.92fr) minmax(520px, 1.08fr);
+  min-height: 100vh;
+}
+
+.brand-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 42px clamp(36px, 6vw, 96px) 46px;
+  color: #f6f8f2;
+  background: var(--pine);
+}
+
+.brand-panel::before {
+  position: absolute;
+  right: -24%;
+  bottom: -18%;
+  width: 82%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(220, 233, 219, 0.18);
+  border-radius: 50%;
+  box-shadow: 0 0 0 66px rgba(220, 233, 219, 0.035), 0 0 0 132px rgba(220, 233, 219, 0.025);
+  content: "";
+}
+
+.brand-panel::after {
+  position: absolute;
+  top: 18%;
+  right: 16%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 0 0 9px rgba(229, 121, 98, 0.13);
+  content: "";
+}
+
+.brand-mark {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  width: max-content;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-symbol {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: "Playfair Display", serif;
+  font-size: 17px;
+}
+
+.brand-copy { position: relative; z-index: 1; margin: auto 0; padding: 70px 0; }
+.eyebrow {
+  margin: 0 0 20px;
+  color: var(--coral);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.brand-copy h1 {
+  max-width: 540px;
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(48px, 5.5vw, 82px);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.brand-copy h1 em { color: var(--sage); font-style: normal; }
+.intro { max-width: 340px; margin: 30px 0 0; color: #c1d1c2; font-size: 16px; line-height: 1.7; }
+
+.signal { position: relative; z-index: 1; display: flex; align-items: center; gap: 13px; color: #c1d1c2; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.signal-line { width: 38px; height: 1px; background: var(--coral); }
+.signal-dot { width: 5px; height: 5px; margin-left: -17px; border-radius: 50%; background: var(--coral); }
+
+.form-panel { display: flex; flex-direction: column; justify-content: center; min-height: 100vh; padding: 48px clamp(34px, 9vw, 150px); background: var(--white); }
+.form-wrap { width: 100%; max-width: 414px; margin: auto; }
+.mobile-brand { display: none; color: var(--pine); }
+.form-heading { margin-bottom: 34px; }
+.form-heading .eyebrow { margin-bottom: 13px; }
+.form-heading h2 { margin: 0; font-family: "Playfair Display", serif; font-size: clamp(31px, 3vw, 42px); font-weight: 600; letter-spacing: 0; line-height: 1.1; }
+.form-heading p:last-child { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+
+.field-group { margin-bottom: 22px; }
+.label-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+label { display: block; margin-bottom: 9px; font-size: 13px; font-weight: 700; }
+.label-row a, .signup-prompt a, .legal a { color: var(--pine); font-weight: 700; text-decoration: none; }
+.label-row a { margin-bottom: 9px; font-size: 12px; }
+input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="tel"], select { width: 100%; height: 52px; padding: 0 16px; border: 1px solid var(--line); border-radius: 4px; outline: none; color: var(--ink); background: #fbfcfa; font-size: 14px; transition: border-color 160ms ease, box-shadow 160ms ease; }
+input[aria-invalid="true"] { border-color: #ef3340 !important; box-shadow: 0 0 0 3px rgba(239, 51, 64, 0.13); }
+input::placeholder { color: #aab2ac; }
+input:focus { border-color: var(--pine); box-shadow: 0 0 0 3px rgba(33, 76, 59, 0.1); }
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 64px; }
+.icon-button { position: absolute; top: 0; right: 0; height: 52px; padding: 0 15px; border: 0; color: var(--pine); background: transparent; cursor: pointer; font-size: 12px; font-weight: 700; }
+.field-error { display: block; min-height: 16px; margin-top: 5px; color: #ef3340; font-size: 12px; }
+
+.remember-row { display: flex; align-items: center; gap: 10px; margin: 0 0 26px; color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; }
+.remember-row input { position: absolute; opacity: 0; pointer-events: none; }
+.checkmark { width: 17px; height: 17px; border: 1px solid #cbd3cc; border-radius: 3px; background: var(--white); }
+.remember-row input:checked + .checkmark { border-color: var(--pine); background: var(--pine); box-shadow: inset 0 0 0 4px var(--white); }
+
+.submit-button, .social-button { display: flex; align-items: center; justify-content: center; width: 100%; height: 52px; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 700; transition: transform 160ms ease, background 160ms ease; }
+.submit-button { gap: 20px; border: 1px solid var(--pine); color: var(--white); background: var(--pine); }
+.submit-button:hover { background: var(--pine-dark); transform: translateY(-1px); }
+.submit-button span { font-size: 20px; font-weight: 400; line-height: 0; }
+.form-status { min-height: 17px; margin: 11px 0 0; color: var(--pine); font-size: 12px; text-align: center; }
+
+.divider { display: flex; align-items: center; gap: 13px; margin: 19px 0; color: #9aa49c; font-size: 11px; white-space: nowrap; }
+.divider::before, .divider::after { flex: 1; height: 1px; background: var(--line); content: ""; }
+.social-button { gap: 9px; border: 1px solid var(--line); color: var(--ink); background: var(--white); }
+.social-button:hover { border-color: #acb9ae; background: #fbfcfa; }
+.google-g { color: #4285f4; font-size: 17px; font-weight: 700; }
+.signup-prompt { margin: 27px 0 0; color: var(--muted); font-size: 13px; text-align: center; }
+.legal { margin: 32px auto 0; color: #9aa49c; font-size: 11px; text-align: center; }
+.legal a { color: var(--muted); font-weight: 600; }
+
+@media (max-width: 760px) {
+  .auth-shell { display: block; }
+  .brand-panel { display: none; }
+  .form-panel { min-height: 100vh; padding: 34px 25px 28px; }
+  .form-wrap { margin: 0 auto; }
+  .mobile-brand { display: inline-flex; margin-bottom: 64px; }
+  .form-heading { margin-bottom: 30px; }
+  .legal { margin-top: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
+
+/* Simple centered login treatment */
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #b9def0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.24) 0.8px, transparent 0.8px), radial-gradient(rgba(65, 112, 140, 0.08) 0.8px, transparent 0.8px);
+  background-position: 0 0, 4px 4px;
+  background-size: 8px 8px;
+}
+
+.auth-shell { display: block; min-height: 0; width: min(100%, 510px); }
+.brand-panel { display: none; }
+.form-panel { display: block; min-height: 0; padding: 33px 30px 31px; border-radius: 20px; background: #eef0f2; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28); }
+.form-wrap { max-width: none; margin: 0; }
+.auth-home-link { display: block; margin-bottom: 22px; color: var(--pine); font-size: 14px; font-weight: 700; text-align: center; text-decoration: none; }
+.form-heading { margin: 0 0 29px; text-align: center; }
+.form-heading h1 { margin: 0; font-family: "DM Sans", sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; }
+.form-heading p { margin: 13px 0 0; color: #687078; font-size: 17px; }
+.login-alert { margin-bottom: 27px; padding: 12px 20px 11px; border: 1px solid #f5d77c; border-radius: 7px; color: #725710; background: #fff3c9; font-size: 16px; line-height: 1.55; }
+.field-group { margin-bottom: 12px; }
+.field-group label { margin-bottom: 9px; color: #5f6368; font-size: 16px; }
+.field-group label span { color: #cf3434; }
+.field-group + .field-group { margin-top: 0; }
+.label-row a, .remember-row, .icon-button { display: none; }
+input[type="email"], input[type="password"], input[type="text"], input[type="number"], input[type="tel"], select { height: 47px; border-color: #d7dce0; border-radius: 6px; background: #fff; font-size: 18px; }
+.password-wrap { position: static; }
+.field-error { min-height: 14px; margin-top: 3px; }
+.submit-button { height: 52px; margin-top: 13px; border-color: #202428; border-radius: 6px; background: #202428; font-size: 18px; }
+.submit-button:hover { background: #121518; }
+.submit-button span { display: none; }
+.form-status { min-height: 0; }
+.signup-prompt { margin: 23px 0 0; color: #6b7075; font-size: 16px; }
+.signup-prompt a { color: #202428; }
+.legal, .divider, .social-button, .mobile-brand { display: none; }
+
+@media (max-width: 540px) {
+  body { padding: 15px; }
+  .form-panel { padding: 29px 24px 28px; border-radius: 17px; }
+  .form-heading h1 { font-size: 32px; }
+  .login-alert { padding: 11px 14px; font-size: 14px; }
+  .alert-break { display: none; }
+}
+
+</style>
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="form-panel" aria-labelledby="register-title">
+      <div class="form-wrap">
+        <a class="auth-home-link" href="landing.html">Dota 2</a>
+        <div class="form-heading">
+          <h1 id="register-title">Register</h1>
+          <p>Create your Dota 2 account</p>
+        </div>
+
+        <form id="register-form" novalidate>
+          <div class="field-group">
+            <label for="full-name">Full name <span aria-hidden="true">*</span></label>
+            <input id="full-name" name="full-name" type="text" autocomplete="name" placeholder="Your full name" maxlength="100" required>
+            <span class="field-error" id="full-name-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="age">Age <span aria-hidden="true">*</span></label>
+            <input id="age" name="age" type="text" inputmode="numeric" placeholder="18" maxlength="3" required>
+            <span class="field-error" id="age-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="gender">Gender <span aria-hidden="true">*</span></label>
+            <input id="gender" name="gender" type="text" autocomplete="sex" placeholder="Gender" maxlength="30" required>
+            <span class="field-error" id="gender-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="phone">Phone number <span aria-hidden="true">*</span></label>
+            <input id="phone" name="phone" type="text" autocomplete="tel" placeholder="Phone number" maxlength="20" required>
+            <span class="field-error" id="phone-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="register-email">Email address <span aria-hidden="true">*</span></label>
+            <input id="register-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" maxlength="100" required>
+            <span class="field-error" id="register-email-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="register-password">Password <span aria-hidden="true">*</span></label>
+            <input id="register-password" name="password" type="password" autocomplete="new-password" placeholder="Password" maxlength="50" required minlength="6">
+            <span class="field-error" id="register-password-error" role="alert"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="confirm-password">Confirm password <span aria-hidden="true">*</span></label>
+            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" placeholder="Confirm password" maxlength="50" required minlength="6">
+            <span class="field-error" id="confirm-password-error" role="alert"></span>
+          </div>
+
+          <button class="submit-button" type="submit">Create account</button>
+          <p class="form-status" id="register-status" role="status"></p>
+        </form>
+
+        <p class="signup-prompt">Already have an account? <a href="login.html">Login</a></p>
+      </div>
+    </section>
+  </main>
+  <script>
+const registerForm = document.querySelector('#register-form');
+const fullName = document.querySelector('#full-name');
+const age = document.querySelector('#age');
+const gender = document.querySelector('#gender');
+const phone = document.querySelector('#phone');
+const registerEmail = document.querySelector('#register-email');
+const registerPassword = document.querySelector('#register-password');
+const confirmPassword = document.querySelector('#confirm-password');
+const fullNameError = document.querySelector('#full-name-error');
+const ageError = document.querySelector('#age-error');
+const genderError = document.querySelector('#gender-error');
+const phoneError = document.querySelector('#phone-error');
+const emailError = document.querySelector('#register-email-error');
+const passwordError = document.querySelector('#register-password-error');
+const confirmError = document.querySelector('#confirm-password-error');
+const registerStatus = document.querySelector('#register-status');
+
+function clearErrors() {
+  fullNameError.textContent = '';
+  ageError.textContent = '';
+  genderError.textContent = '';
+  phoneError.textContent = '';
+  emailError.textContent = '';
+  passwordError.textContent = '';
+  confirmError.textContent = '';
+  registerStatus.textContent = '';
+  fullName.removeAttribute('aria-invalid');
+  age.removeAttribute('aria-invalid');
+  gender.removeAttribute('aria-invalid');
+  phone.removeAttribute('aria-invalid');
+  registerEmail.removeAttribute('aria-invalid');
+  registerPassword.removeAttribute('aria-invalid');
+  confirmPassword.removeAttribute('aria-invalid');
+}
+
+registerForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  clearErrors();
+
+  let isValid = true;
+  if (!fullName.value.trim()) {
+    fullNameError.textContent = 'Full name is required.';
+    fullName.setAttribute('aria-invalid', 'true');
+    isValid = false;
+  }
+  const ageValue = Number(age.value.trim());
+  if (!age.value.trim() || !Number.isInteger(ageValue) || ageValue < 13 || ageValue > 120) {
+    ageError.textContent = 'Enter an age between 13 and 120.';
+    age.setAttribute('aria-invalid', 'true');
+    isValid = false;
+  }
+  if (!gender.value) {
+    genderError.textContent = 'Please select a gender.';
+    gender.setAttribute('aria-invalid', 'true');
+    isValid = false;
+  }
+  if (!phone.value.trim()) {
+    phoneError.textContent = 'Phone number is required.';
+    phone.setAttribute('aria-invalid', 'true');
+    isValid = false;
+  }
+  if (!registerEmail.validity.valid) {
+    emailError.textContent = 'Please enter a valid email address (max 100 characters).';
+    registerEmail.setAttribute('aria-invalid', 'true');
+    isValid = false;
+  }
+  if (registerPassword.value.length < 6) {
+    passwordError.textContent = 'Password is required (max 50 characters).';
+    registerPassword.setAttribute('aria-invalid', 'true');
+    isValid = false;
+  }
+  if (confirmPassword.value !== registerPassword.value) {
+    confirmError.textContent = 'Passwords do not match.';
+    confirmPassword.setAttribute('aria-invalid', 'true');
+    isValid = false;
+  }
+  if (!isValid) return;
+
+  const normalizedEmail = registerEmail.value.trim().toLowerCase();
+  localStorage.setItem('cinematixAccount', JSON.stringify({
+    fullName: fullName.value.trim(),
+    age: age.value,
+    gender: gender.value,
+    phone: phone.value.trim(),
+    email: normalizedEmail,
+    password: registerPassword.value
+  }));
+  registerStatus.textContent = 'Account created. You can now log in.';
+  registerForm.reset();
+});
+
+</script>
+</body>
+</html>
